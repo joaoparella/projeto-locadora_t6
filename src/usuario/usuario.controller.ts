@@ -1,22 +1,35 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { usuariosCadastrados } from "./usuario.service.js";
 
 
 @Controller('/usuarios')
-export class UsuarioController{    
-    constructor(){}
+export class UsuarioController{  
+    #usuarios:usuariosCadastrados;
+    constructor(){
+        this.#usuarios = new usuariosCadastrados();
+    }
+
+    @Post()
+    async cadastroUsuario(@Body() dadosUsuario: any){
+        let retorno = this.#usuarios.adicionaUsuario(dadosUsuario);
+        if (retorno){
+            return {
+                message:"cadastro efetuado com sucesso",
+                id:retorno
+            }
+        }else{
+            return {
+                message:"cadastro não efetuado",
+                id:null
+            }
+        }
+    }
 
     @Get()
-    async HelloWorld(){
-       return "Hello World"
-    }
-
-    @Post("/:nome_usuario")
-    async TestePost(@Param('nome_usuario') entrada: string ){
-        return "teste do post - " + entrada
-    }
-
-    @Post("")
-    async TestePostBody(@Body() entrada: any){
-        return `Teste do body - ${entrada.numero}`
+    async retornarUsuarios(){
+        return {
+            message:"Consulta efetuada",
+            usuarios: this.#usuarios.retornaUsuarios()
+        }
     }
 }
