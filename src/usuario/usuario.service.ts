@@ -15,4 +15,19 @@ export class usuariosCadastrados{
     retornaUsuarios(){
         return this.#usuarios;
     }
+
+    retornaUsuarioID(id:string){
+        // for(let i = 0; i < this.#usuarios.length; i++){
+        //     if (this.#usuarios[i].id = id){
+        //         return this.#usuarios[i]
+        //     }
+        // }
+        // return null;
+        const possivelUsuario = this.#usuarios.find(
+            usuarioSalvo => usuarioSalvo.id === id
+        )
+
+        return possivelUsuario;
+
+    }
 }

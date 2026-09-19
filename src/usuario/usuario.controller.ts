@@ -32,4 +32,23 @@ export class UsuarioController{
             usuarios: this.#usuarios.retornaUsuarios()
         }
     }
+
+    @Get('/:id')
+    async retornarUsuarioID(@Param('id') id: string){
+       // fazer consulta por id
+       let resultado = this.#usuarios.retornaUsuarioID(id);
+
+       if (resultado){
+            return {
+                message:"usuario localizado",
+                id:resultado
+            }
+        }else{
+            return {
+                message:"usuario não localizado",
+                id:null
+            }
+        }
+
+    }
 }
