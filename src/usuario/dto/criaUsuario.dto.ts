@@ -1,10 +1,6 @@
 import { IsEmail, IsNumber, IsString, MinLength } from "class-validator";
 
 export class criaUsuarioDTO{
-
-    @IsString()
-    id: string;
-
     @IsString()
     nome: string;
     

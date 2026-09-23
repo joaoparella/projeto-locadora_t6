@@ -1,10 +1,13 @@
+import { Injectable } from "@nestjs/common";
 import { Usuario } from "./usuario.entity.js";
+import {v4 as uuid} from 'uuid';
 
+@Injectable()
 export class usuariosCadastrados{
     #usuarios:Usuario[] = [];
 
     adicionaUsuario(dadosUsuario: any){
-        let usuario = new Usuario(dadosUsuario.id, dadosUsuario.nome,
+        let usuario = new Usuario(uuid(), dadosUsuario.nome,
                     dadosUsuario.idade, dadosUsuario.cidade, dadosUsuario.email, 
                     dadosUsuario.telefone, dadosUsuario.senha, dadosUsuario.endereco
         )

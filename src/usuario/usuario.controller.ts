@@ -5,9 +5,8 @@ import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
 
 @Controller('/usuarios')
 export class UsuarioController{  
-    #usuarios:usuariosCadastrados;
-    constructor(){
-        this.#usuarios = new usuariosCadastrados();
+    constructor(private usuarios:usuariosCadastrados){
+        
     }
 
     @Post()
@@ -46,7 +45,7 @@ export class UsuarioController{
         // }
         
 
-        let retorno = this.#usuarios.adicionaUsuario(dadosUsuario);
+        let retorno = this.usuarios.adicionaUsuario(dadosUsuario);
         if (retorno){
             return {
                 message:"cadastro efetuado com sucesso",
@@ -64,14 +63,14 @@ export class UsuarioController{
     async retornarUsuarios(){
         return {
             message:"Consulta efetuada",
-            usuarios: this.#usuarios.retornaUsuarios()
+            usuarios: this.usuarios.retornaUsuarios()
         }
     }
 
     @Get('/:id')
     async retornarUsuarioID(@Param('id') id: string){
        // fazer consulta por id
-       let resultado = this.#usuarios.retornaUsuarioID(id);
+       let resultado = this.usuarios.retornaUsuarioID(id);
 
        if (resultado){
             return {
