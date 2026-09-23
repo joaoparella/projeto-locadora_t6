@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from "@nestjs/common";
 import { usuariosCadastrados } from "./usuario.service.js";
+import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
 
 
 @Controller('/usuarios')
@@ -10,7 +11,41 @@ export class UsuarioController{
     }
 
     @Post()
-    async cadastroUsuario(@Body() dadosUsuario: any){
+    async cadastroUsuario(@Body() dadosUsuario: criaUsuarioDTO){
+        // let erros:string[] = []
+        // if(!(dadosUsuario.id)){
+        //     erros.push("id não preenchido")
+        // }
+        // if(!(dadosUsuario.nome)){
+        //     erros.push("nome não preenchido")
+        // }
+        // if(!(dadosUsuario.idade)){
+        //     erros.push("idade não preenchido")
+        // }
+        // if(!(dadosUsuario.cidade)){
+        //     erros.push("cidade não preenchido")
+        // }
+        // if(!(dadosUsuario.email)){
+        //     erros.push("email não preenchido")
+        // }
+        // if(!(dadosUsuario.telefone)){
+        //     erros.push("telefone não preenchido")
+        // }
+        // if(!(dadosUsuario.senha)){
+        //     erros.push("senha não preenchido")
+        // }
+        // if(!(dadosUsuario.endereco)){
+        //     erros.push("endereco não preenchido")
+        // }
+
+        // if(erros){
+        //     return {
+        //         message:erros,
+        //         id:null
+        //     }
+        // }
+        
+
         let retorno = this.#usuarios.adicionaUsuario(dadosUsuario);
         if (retorno){
             return {

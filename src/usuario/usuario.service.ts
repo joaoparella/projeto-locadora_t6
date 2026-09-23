@@ -26,8 +26,6 @@ export class usuariosCadastrados{
         const possivelUsuario = this.#usuarios.find(
             usuarioSalvo => usuarioSalvo.id === id
         )
-
         return possivelUsuario;
-
     }
 }
