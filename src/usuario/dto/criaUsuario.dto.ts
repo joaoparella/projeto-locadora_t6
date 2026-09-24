@@ -1,4 +1,5 @@
 import { IsEmail, IsNumber, IsString, MinLength } from "class-validator";
+import { EmailUnico } from "../validator/emailUnico.validator.js";
 
 export class criaUsuarioDTO{
     @IsString()
@@ -11,6 +12,7 @@ export class criaUsuarioDTO{
     cidade: string;
     
     @IsEmail()
+    @EmailUnico({message:"Ja existe um usuario com esse email."})
     @IsString()
     email: string;
     

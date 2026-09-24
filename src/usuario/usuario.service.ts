@@ -31,4 +31,11 @@ export class usuariosCadastrados{
         )
         return possivelUsuario;
     }
+
+    async validaEmail(email: string){
+        const possivelUsuario = this.#usuarios.find(
+            usuario => usuario.email === email
+        );
+        return (possivelUsuario !== undefined);
+    }
 }
