@@ -52,6 +52,8 @@ export class usuariosCadastrados{
             ([chave,valor]) => {
                 if(chave == 'id'){
                     return;
+                }else if (valor === undefined) {
+                    return;
                 }
                 (possivelUsuario as any)[chave] = valor;
             }
