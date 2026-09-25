@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
 import { usuariosCadastrados } from "./usuario.service.js";
 import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
+import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto.js";
 
 
 @Controller('/usuarios')
@@ -83,6 +84,22 @@ export class UsuarioController{
                 id:null
             }
         }
+    }
 
+    @Put('/:id')
+    async atualizaUsuario(@Param('id') id: string, @Body() novosDados:alteraUsuarioDTO){
+        const retorno = await this.usuarios.atualizaUsuario(id,novosDados)
+        if (retorno){
+            return {
+                message:"usuario atualizado",
+                id:retorno
+            }
+        }else{
+            return {
+                message:"usuario não atualizado",
+                id:null
+            }
+        }
+        
     }
 }
