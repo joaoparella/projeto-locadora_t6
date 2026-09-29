@@ -21,15 +21,18 @@ export class usuariosCadastrados{
     }
 
     retornaUsuarioID(id:string){
-        // for(let i = 0; i < this.#usuarios.length; i++){
+        /*// for(let i = 0; i < this.#usuarios.length; i++){
         //     if (this.#usuarios[i].id = id){
         //         return this.#usuarios[i]
         //     }
         // }
-        // return null;
+        // return null;*/
         const possivelUsuario = this.#usuarios.find(
             usuarioSalvo => usuarioSalvo.id === id
         )
+         if(!possivelUsuario){
+            throw new Error('Usuario não localizado')
+        }
         return possivelUsuario;
     }
 
@@ -41,13 +44,7 @@ export class usuariosCadastrados{
     }
 
     async atualizaUsuario(id: string, dadosAtualizacao: alteraUsuarioDTO){
-         const possivelUsuario = this.#usuarios.find(
-            usuarioSalvo => usuarioSalvo.id === id
-        )
-
-        if(!possivelUsuario){
-            throw new Error('Usuario não localizado')
-        }
+        let possivelUsuario = this.retornaUsuarioID(id);
         Object.entries(dadosAtualizacao).forEach(
             ([chave,valor]) => {
                 if(chave == 'id'){
@@ -80,6 +77,15 @@ export class usuariosCadastrados{
         // if (dadosAtualizacao.telefone){
         //     possivelUsuario.telefone = dadosAtualizacao.telefone;
         // }//**//
-        
+    }
+
+    async apagaUsuario(id:string){
+        let possivelUsuario = this.retornaUsuarioID(id);
+
+        this.#usuarios = this.#usuarios.filter(
+            usuarioSalvo => usuarioSalvo.id !== id
+        )
+
+        return possivelUsuario;
     }
 }

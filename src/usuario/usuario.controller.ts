@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { usuariosCadastrados } from "./usuario.service.js";
 import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
 import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto.js";
@@ -12,7 +12,7 @@ export class UsuarioController{
 
     @Post()
     async cadastroUsuario(@Body() dadosUsuario: criaUsuarioDTO){
-        // let erros:string[] = []
+        /*// let erros:string[] = []
         // if(!(dadosUsuario.id)){
         //     erros.push("id não preenchido")
         // }
@@ -43,7 +43,7 @@ export class UsuarioController{
         //         message:erros,
         //         id:null
         //     }
-        // }
+        // }*/
         
 
         let retorno = this.usuarios.adicionaUsuario(dadosUsuario);
@@ -100,6 +100,14 @@ export class UsuarioController{
                 id:null
             }
         }
-        
+    }
+
+    @Delete('/:id')
+    async removeUsuario(@Param('id') id: string){
+        const usuarioRemovido = await this.usuarios.apagaUsuario(id)
+        return {
+            usuario: usuarioRemovido,
+            message: 'Usuario removido.'
+        }
     }
 }
