@@ -2,12 +2,34 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { usuariosCadastrados } from "./usuario.service.js";
 import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
 import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto.js";
+import { LoginUsuarioDTO } from "./dto/loginUsuario.dto.js";
 
 
 @Controller('/usuarios')
 export class UsuarioController{  
     constructor(private usuarios:usuariosCadastrados){
         
+    }
+
+    @Post('/login')
+    async login(@Body() dadosLogin: LoginUsuarioDTO){
+        const usuario = this.usuarios.validaLogin(dadosLogin.email, dadosLogin.senha);
+        if (usuario){
+            return {
+                message: "Login efetuado com sucesso",
+                usuario: {
+                    id: usuario.id,
+                    nome: usuario.nome,
+                    email: usuario.email,
+                    cidade: usuario.cidade
+                }
+            };
+        } else {
+            return {
+                message: "Email ou senha incorretos",
+                usuario: null
+            };
+        }
     }
 
     @Post()

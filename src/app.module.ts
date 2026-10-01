@@ -9,4 +9,4 @@ export const { ObserveModule, ObserveInstrument } = createObserveModule();
   controllers: [],
   providers: [],
 })
-export class AppModule {}
+export class AppModule { }

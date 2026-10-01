@@ -1,75 +1,76 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common";
 import { FilmesArmazenados } from "./filme.service.js";
 import { criaFilmeDTO } from "./dto/criaFilme.dto.js";
+import { alteraFilmeDTO } from "./dto/alteraFilme.dto.js";
 
 @Controller('/filmes')
-export class FilmeController{  
-    constructor(private filmes:FilmesArmazenados){
+export class FilmeController {  
+    constructor(private filmes: FilmesArmazenados) {
     }
+
     @Post()
-    async cadastroFilme(@Body() dadosFilme: criaFilmeDTO){
+    async cadastroFilme(@Body() dadosFilme: criaFilmeDTO) {
         let retorno = this.filmes.AdicionarFilme(dadosFilme);
-        if (retorno){
+        if (retorno) {
             return {
-                message:"cadastro efetuado com sucesso",
-                id:retorno
-            }
-        }else{
+                message: "cadastro efetuado com sucesso",
+                id: retorno
+            };
+        } else {
             return {
-                message:"cadastro não efetuado",
-                id:null
-            }
+                message: "cadastro não efetuado",
+                id: null
+            };
         }
     }
 
     @Get()
-    async retornarUsuarios(){
+    async retornarFilmes() {
         return {
-            message:"Consulta efetuada",
-            usuarios: this.usuarios.retornaUsuarios()
-        }
+            message: "Consulta efetuada",
+            filmes: this.filmes.filmes
+        };
     }
 
     @Get('/:id')
-    async retornarUsuarioID(@Param('id') id: string){
-       // fazer consulta por id
-       let resultado = this.usuarios.retornaUsuarioID(id);
+    async retornarFilmeID(@Param('id') id: string) {
+       let resultado = this.filmes.pesquisaId(id);
 
-       if (resultado){
+       if (resultado) {
             return {
-                message:"usuario localizado",
-                id:resultado
-            }
-        }else{
+                message: "filme localizado",
+                filme: resultado
+            };
+        } else {
             return {
-                message:"usuario não localizado",
-                id:null
-            }
+                message: "filme não localizado",
+                filme: null
+            };
         }
     }
 
     @Put('/:id')
-    async atualizaUsuario(@Param('id') id: string, @Body() novosDados:alteraUsuarioDTO){
-        const retorno = await this.usuarios.atualizaUsuario(id,novosDados)
-        if (retorno){
+    async atualizaFilme(@Param('id') id: string, @Body() novosDados: alteraFilmeDTO) {
+        const retorno = await this.filmes.alteraFilme(id, novosDados);
+        if (retorno) {
             return {
-                message:"usuario atualizado",
-                id:retorno
-            }
-        }else{
+                message: "filme atualizado",
+                filme: retorno
+            };
+        } else {
             return {
-                message:"usuario não atualizado",
-                id:null
-            }
+                message: "filme não atualizado",
+                filme: null
+            };
         }
     }
 
     @Delete('/:id')
-    async removeUsuario(@Param('id') id: string){
-        const usuarioRemovido = await this.usuarios.apagaUsuario(id)
+    async removeFilme(@Param('id') id: string) {
+        const filmeRemovido = await this.filmes.removeFilme(id);
         return {
-            usuario: usuarioRemovido,
-            message: 'Usuario removido.'
-        }
+            filme: filmeRemovido,
+            message: 'Filme removido.'
+        };
     }
-}
+}

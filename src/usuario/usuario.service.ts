@@ -7,6 +7,19 @@ import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto.js";
 export class usuariosCadastrados{
     #usuarios:Usuario[] = [];
 
+    constructor() {
+        // Usuário inicial para facilitar testes dos alunos
+        this.adicionaUsuario({
+            nome: 'Administrador Demo',
+            idade: 25,
+            cidade: 'São Paulo',
+            email: 'admin@senac.br',
+            telefone: '11999999999',
+            senha: '123456',
+            endereco: 'Av. Paulista, 1000'
+        });
+    }
+
     adicionaUsuario(dadosUsuario: any){
         let usuario = new Usuario(uuid(), dadosUsuario.nome,
                     dadosUsuario.idade, dadosUsuario.cidade, dadosUsuario.email, 
@@ -21,18 +34,19 @@ export class usuariosCadastrados{
     }
 
     retornaUsuarioID(id:string){
-        /*// for(let i = 0; i < this.#usuarios.length; i++){
-        //     if (this.#usuarios[i].id = id){
-        //         return this.#usuarios[i]
-        //     }
-        // }
-        // return null;*/
         const possivelUsuario = this.#usuarios.find(
             usuarioSalvo => usuarioSalvo.id === id
         )
          if(!possivelUsuario){
             throw new Error('Usuario não localizado')
         }
+        return possivelUsuario;
+    }
+
+    validaLogin(email: string, senha: string){
+        const possivelUsuario = this.#usuarios.find(
+            usuario => usuario.email === email && usuario.senha === senha
+        );
         return possivelUsuario;
     }
 

@@ -18,6 +18,8 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule),{fallbackOnErrors:true})
 
+  app.enableCors();
+
   await app.listen(process.env.PORT ?? 3000);
 }
 await bootstrap();
