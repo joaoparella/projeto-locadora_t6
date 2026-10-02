@@ -8,16 +8,7 @@ export class usuariosCadastrados{
     #usuarios:Usuario[] = [];
 
     constructor() {
-        // Usuário inicial para facilitar testes dos alunos
-        this.adicionaUsuario({
-            nome: 'Administrador Demo',
-            idade: 25,
-            cidade: 'São Paulo',
-            email: 'admin@senac.br',
-            telefone: '11999999999',
-            senha: '123456',
-            endereco: 'Av. Paulista, 1000'
-        });
+
     }
 
     adicionaUsuario(dadosUsuario: any){
@@ -40,13 +31,6 @@ export class usuariosCadastrados{
          if(!possivelUsuario){
             throw new Error('Usuario não localizado')
         }
-        return possivelUsuario;
-    }
-
-    validaLogin(email: string, senha: string){
-        const possivelUsuario = this.#usuarios.find(
-            usuario => usuario.email === email && usuario.senha === senha
-        );
         return possivelUsuario;
     }
 
@@ -100,6 +84,13 @@ export class usuariosCadastrados{
             usuarioSalvo => usuarioSalvo.id !== id
         )
 
+        return possivelUsuario;
+    }
+
+    async validaLogin(email:string, senha:string){
+         const possivelUsuario = this.#usuarios.find(
+            usuario => usuario.email === email && usuario.senha === senha
+        );
         return possivelUsuario;
     }
 }

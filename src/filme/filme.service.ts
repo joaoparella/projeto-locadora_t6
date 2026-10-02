@@ -8,6 +8,7 @@ import { alteraFilmeDTO } from "./dto/alteraFilme.dto.js";
 export class FilmesArmazenados {
     #filmes: Filme[] = [];
 
+
     AdicionarFilme(dadosFilme: criaFilmeDTO) {
         let filme = new Filme(uuid(), dadosFilme.nome,
             dadosFilme.duracao, dadosFilme.sinopse, dadosFilme.ano
@@ -54,7 +55,7 @@ export class FilmesArmazenados {
         return filme;
     }
 
-    get filmes() {
+    retornaFilmes(){
         return this.#filmes;
     }
 }

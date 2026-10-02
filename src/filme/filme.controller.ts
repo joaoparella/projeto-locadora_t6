@@ -28,7 +28,7 @@ export class FilmeController {
     async retornarFilmes() {
         return {
             message: "Consulta efetuada",
-            filmes: this.filmes.filmes
+            filmes: this.filmes.retornaFilmes()
         };
     }
 
@@ -73,4 +73,4 @@ export class FilmeController {
             message: 'Filme removido.'
         };
     }
-}
+}

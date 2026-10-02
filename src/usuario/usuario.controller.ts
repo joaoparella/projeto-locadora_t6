@@ -12,8 +12,8 @@ export class UsuarioController{
     }
 
     @Post('/login')
-    async login(@Body() dadosLogin: LoginUsuarioDTO){
-        const usuario = this.usuarios.validaLogin(dadosLogin.email, dadosLogin.senha);
+    async loginUsuario(@Body() login:LoginUsuarioDTO){
+        const usuario = await this.usuarios.validaLogin(login.email, login.senha);
         if (usuario){
             return {
                 message: "Login efetuado com sucesso",
