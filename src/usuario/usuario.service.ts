@@ -49,6 +49,8 @@ export class usuariosCadastrados{
                     return;
                 }else if (valor === undefined) {
                     return;
+                }else if( chave == 'senha'){
+                    possivelUsuario.trocaSenha(valor)
                 }
                 (possivelUsuario as any)[chave] = valor;
             }
@@ -87,10 +89,22 @@ export class usuariosCadastrados{
         return possivelUsuario;
     }
 
-    async validaLogin(email:string, senha:string){
-         const possivelUsuario = this.#usuarios.find(
-            usuario => usuario.email === email && usuario.senha === senha
+    async buscaEmail(email:string){
+        const possivelUsuario = this.#usuarios.find(
+            usuario => usuario.email === email
         );
+        if(!possivelUsuario){
+            throw new Error('Usuario não localizado')
+        }
         return possivelUsuario;
+    }
+
+    async validaLogin(email:string, senha:string){
+        const possivelUsuario = await this.buscaEmail(email)
+        if (possivelUsuario.login(senha)){
+            return possivelUsuario;
+        }else{
+            return null ;
+        }
     }
 }
