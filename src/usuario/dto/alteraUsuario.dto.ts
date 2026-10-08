@@ -1,5 +1,6 @@
 import { IsEmail, IsNumber, IsOptional, IsString, MinLength } from "class-validator";
 import { EmailUnico } from "../validator/emailUnico.validator.js";
+import { SenhaForte } from "../validator/senhaForte.validator.js";
 
 export class alteraUsuarioDTO{
     @IsString()
@@ -25,7 +26,7 @@ export class alteraUsuarioDTO{
     telefone: string;
     
     @IsString()
-    @MinLength(6)
+    @SenhaForte({message:"Senha fraca"})
     @IsOptional()
     senha: string; 
     
