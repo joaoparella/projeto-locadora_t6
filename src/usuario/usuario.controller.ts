@@ -3,8 +3,10 @@ import { usuariosCadastrados } from "./usuario.service.js";
 import { criaUsuarioDTO } from "./dto/criaUsuario.dto.js";
 import { alteraUsuarioDTO } from "./dto/alteraUsuario.dto.js";
 import { LoginUsuarioDTO } from "./dto/login.dto.js";
+import { ApiCreatedResponse, ApiTags } from "@nestjs/swagger";
 
 
+@ApiTags('usuarios')
 @Controller('/usuarios')
 export class UsuarioController{  
     constructor(private usuarios:usuariosCadastrados){
@@ -33,6 +35,7 @@ export class UsuarioController{
     }
 
     @Post()
+    @ApiCreatedResponse({description:'Retorno que foi cadastrado usuário com sucesso'})
     async cadastroUsuario(@Body() dadosUsuario: criaUsuarioDTO){
         /*// let erros:string[] = []
         // if(!(dadosUsuario.id)){
