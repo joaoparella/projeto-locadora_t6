@@ -2,7 +2,9 @@ import { Body, Controller, Delete, Get, Param, Post, Put } from "@nestjs/common"
 import { FilmesArmazenados } from "./filme.service.js";
 import { criaFilmeDTO } from "./dto/criaFilme.dto.js";
 import { alteraFilmeDTO } from "./dto/alteraFilme.dto.js";
+import { ApiTags } from "@nestjs/swagger";
 
+@ApiTags('filmes')
 @Controller('/filmes')
 export class FilmeController {  
     constructor(private filmes: FilmesArmazenados) {
