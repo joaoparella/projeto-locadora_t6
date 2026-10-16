@@ -12,7 +12,7 @@ export class FilmeController {
 
     @Post()
     async cadastroFilme(@Body() dadosFilme: criaFilmeDTO) {
-        let retorno = this.filmes.AdicionarFilme(dadosFilme);
+        let retorno = await this.filmes.AdicionarFilme(dadosFilme);
         if (retorno) {
             return {
                 message: "cadastro efetuado com sucesso",

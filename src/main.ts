@@ -4,6 +4,10 @@ import { ForbiddenException, ValidationPipe } from '@nestjs/common';
 import { useContainer } from 'class-validator';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
+import { loadEnvFile } from 'node:process';
+try { loadEnvFile(); } catch {} // Carrega o arquivo .env automaticamente!
+
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     instrument: ObserveInstrument,
